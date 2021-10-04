@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 // MARK: - Pokemon
 
@@ -25,6 +26,22 @@ enum PokemonType: String, Decodable, CaseIterable, Identifiable {
     case ice = "Ice"
     case ground = "Ground"
 
+}
+
+struct Abilities: Decodable{
+    let ability: Ability
+}
+
+struct Ability: Decodable{
+    let name : String
+}
+
+struct Types: Decodable{
+    let type: Type
+}
+
+struct Type: Decodable{
+    let name : String
 }
 
 struct Pokemon: Decodable, Equatable {
@@ -61,11 +78,15 @@ struct Pokemon: Decodable, Equatable {
         let other = try sprites.nestedContainer(keyedBy: CodingKeys.self, forKey: .other)
         let officialArtWork = try other.nestedContainer(keyedBy: CodingKeys.self, forKey: .officialArtwork)
         self.image = try? officialArtWork.decode(String.self, forKey: .frontDefault)
-
+    
         // TODO: Decode list of types & abilities
+        let abilities = try container.decode([Abilities].self, forKey: .abilities)
+        let arrayAbility = abilities.map{$0.ability.name}
+        let types = try container.decode([Types].self, forKey: .types)
+        let arrayTypes = types.map{$0.type.name}
 
-        self.types = []
-        self.abilities = []
+        self.types = arrayTypes
+        self.abilities = arrayAbility
 
         self.weight = try container.decode(Float.self, forKey: .weight)
         self.baseExperience = try container.decode(Int.self, forKey: .baseExperience)

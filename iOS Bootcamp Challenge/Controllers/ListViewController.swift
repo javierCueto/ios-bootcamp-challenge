@@ -121,6 +121,7 @@ class ListViewController: UICollectionViewController {
                 PokeAPI.shared.get(url: "/pokemon/\(result.id)/", onCompletion: { (pokemon: Pokemon?, _) in
                     guard let pokemon = pokemon else { return }
                     pokemons.append(pokemon)
+                    print(pokemon)
                     self.pokemons = pokemons
                     self.didRefresh()
                 })
