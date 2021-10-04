@@ -105,7 +105,14 @@ class ListViewController: UICollectionViewController {
     // MARK: - Navigation
 
     // TODO: Handle navigation to detail view controller
-
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let pokemon = resultPokemons[indexPath.row]
+        let controller = DetailViewController()
+        controller.pokemon = pokemon
+        navigationController?.pushViewController(controller, animated: true)
+    }
+    
     // MARK: - UI Hooks
 
     @objc func refresh() {

@@ -21,22 +21,6 @@ class DetailViewController: UIViewController {
 
     var pokemon: Pokemon?
 
-    lazy private var closeButon: UIButton = {
-        let button = UIButton(type: .close)
-        button.addTarget(self, action: #selector(closeButton), for: .touchUpInside)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
-
-    lazy private var nameLabel: UILabel = {
-        let label = UILabel()
-        label.textAlignment = .right
-        label.font = UIFont.boldSystemFont(ofSize: 30)
-        label.textColor = .white
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-
     lazy private var idLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .right
@@ -105,7 +89,8 @@ class DetailViewController: UIViewController {
 
     private func setup() {
         guard let pokemon = pokemon else { return }
-        nameLabel.text = pokemon.name.capitalized
+        configureNavigationBar(withTitle: pokemon.name.capitalized, prefersLargeTitles: true)
+       
         idLabel.text = pokemon.formattedNumber()
 
         guard let gradient = gradient else { return }
@@ -120,22 +105,14 @@ class DetailViewController: UIViewController {
     }
 
     private func setupUI() {
-        view.addSubview(closeButon)
-        closeButon.topAnchor.constraint(equalTo: view.topAnchor, constant: margin).isActive = true
-        closeButon.leftAnchor.constraint(equalTo: view.leftAnchor, constant: margin).isActive = true
-
-        view.addSubview(nameLabel)
-        nameLabel.topAnchor.constraint(equalTo: closeButon.bottomAnchor, constant: margin).isActive = true
-        nameLabel.leftAnchor.constraint(equalTo: closeButon.leftAnchor).isActive = true
-        nameLabel.widthAnchor.constraint(lessThanOrEqualTo: view.widthAnchor, multiplier: 0.7).isActive = true
 
         view.addSubview(idLabel)
-        idLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor).isActive = true
+        idLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: margin).isActive = true
         idLabel.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -margin).isActive = true
 
         view.addSubview(typesStackView)
-        typesStackView.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: margin).isActive = true
-        typesStackView.leftAnchor.constraint(equalTo: closeButon.leftAnchor).isActive = true
+        typesStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: margin).isActive = true
+        typesStackView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: margin).isActive = true
         typesStackView.widthAnchor.constraint(lessThanOrEqualTo: view.widthAnchor, multiplier: 0.7).isActive = true
 
         view.addSubview(cardView)
