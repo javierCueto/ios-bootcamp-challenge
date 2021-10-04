@@ -32,4 +32,26 @@ class PokeAPI {
         task?.resume()
         return task
     }
+    
+    func getListPokemon(onCompletion: @escaping([Pokemon]) ->Void) {
+        var pokemons = [Pokemon]()
+        let group = DispatchGroup()
+        PokeAPI.shared.get(url: "pokemon?limit=30", onCompletion: { (list: PokemonList?, _) in
+            guard let list = list else { return }
+            list.results.forEach { result in
+                group.enter()
+                PokeAPI.shared.get(url: "/pokemon/\(result.id)/", onCompletion: { (pokemon: Pokemon?, _) in
+                    guard let pokemon = pokemon else { return }
+                    pokemons.append(pokemon)
+                    group.leave()
+                })
+            }
+            group.notify(queue: .main) {
+                onCompletion(pokemons)
+            }
+        })
+  
+    }
+    
+    
 }
