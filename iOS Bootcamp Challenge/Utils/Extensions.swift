@@ -8,12 +8,13 @@
 import UIKit
 
 extension UIViewController {
-    func configureNavigationBar(withTitle title: String, prefersLargeTitles: Bool) {
+    func configureNavigationBar(withTitle title: String, prefersLargeTitles: Bool, textColor: UIColor = UIColor.white) {
+        guard let navbar = self.navigationController?.navigationBar else { return }
         let appearance = UINavigationBarAppearance()
-        appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
-        navigationController?.navigationBar.standardAppearance = appearance        
-        navigationController?.navigationBar.prefersLargeTitles = prefersLargeTitles
+        appearance.largeTitleTextAttributes = [.foregroundColor: textColor]
+        navbar.standardAppearance = appearance
+        navbar.prefersLargeTitles = prefersLargeTitles
         navigationItem.title = title
-        navigationController?.navigationBar.tintColor = .white
+        navbar.tintColor = textColor
     }
 }

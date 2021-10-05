@@ -18,7 +18,7 @@ class ListViewController: UICollectionViewController {
     private var latestSearch: String?
 
     lazy private var searchController: SearchBar = {
-        let searchController = SearchBar("Search a pokemon", delegate: nil)
+        let searchController = SearchBar("Search a pokemon", delegate: self)
         searchController.text = latestSearch
         searchController.showsCancelButton = !searchController.isSearchBarEmpty
         return searchController
@@ -36,24 +36,24 @@ class ListViewController: UICollectionViewController {
         setup()
         setupUI()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        configureNavigation()
+    }
 
     // MARK: Setup
 
     private func setup() {
-        title = "Pokédex"
-
-        // Customize navigation bar.
-        guard let navbar = self.navigationController?.navigationBar else { return }
-
-        navbar.tintColor = .black
-        navbar.titleTextAttributes = [.foregroundColor: UIColor.black]
-        navbar.prefersLargeTitles = true
-
         // Set up the searchController parameters.
         navigationItem.searchController = searchController
         definesPresentationContext = true
         SVProgressHUD.show()
         refresh()
+    }
+    
+    private func configureNavigation(){
+        configureNavigationBar(withTitle: "Pokédex", prefersLargeTitles: true, textColor: .black)
     }
 
     private func setupUI() {
@@ -140,4 +140,19 @@ class ListViewController: UICollectionViewController {
         filterContentForSearchText("")
     }
 
+}
+
+extension ListViewController: SearchBarDelegate {
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+    }
+    
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        
+    }
+    
+    func updateSearchResults(for text: String) {
+        self.filterContentForSearchText(text)
+    }
+    
+    
 }
