@@ -51,6 +51,7 @@ struct Pokemon: Decodable, Equatable {
     let image: String?
     let types: [String]?
     let abilities: [String]?
+    let height: Float 
     let weight: Float
     let baseExperience: Int
 
@@ -68,6 +69,7 @@ struct Pokemon: Decodable, Equatable {
         case ability
         case weight
         case baseExperience = "base_experience"
+        case height
     }
 
     init(from decoder: Decoder) throws {
@@ -89,6 +91,7 @@ struct Pokemon: Decodable, Equatable {
         self.abilities = arrayAbility
 
         self.weight = try container.decode(Float.self, forKey: .weight)
+        self.height = try container.decode(Float.self, forKey: .height)
         self.baseExperience = try container.decode(Int.self, forKey: .baseExperience)
     }
 

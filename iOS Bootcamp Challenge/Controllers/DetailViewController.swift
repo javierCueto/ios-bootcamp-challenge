@@ -48,7 +48,7 @@ class DetailViewController: UIViewController {
 
     lazy private var cardView: CardView = {
         let title = "About"
-        let cardView = CardView(card: Card(title: title, items: items))
+        let cardView = CardView(card: Card(title: title, items: items, pokemonType: pokemon?.primaryType() ?? ""))
         cardView.translatesAutoresizingMaskIntoConstraints = false
         return cardView
     }()
@@ -61,7 +61,7 @@ class DetailViewController: UIViewController {
         // abilities
         if let abilities = pokemon.abilities {
             let title = "Abilities"
-            let description = abilities.joined(separator: "\n")
+            let description = abilities.joined(separator: ", ")
             let item = Item(title: title, description: description)
             items.append(item)
         }
@@ -69,6 +69,10 @@ class DetailViewController: UIViewController {
         // weight
         let weight = "Weight"
         items.append(Item(title: weight, description: "\(pokemon.weight/10) kg"))
+        
+        // height
+        let height = "Height"
+        items.append(Item(title: height, description: "\(pokemon.height) ''"))
 
         // baseExperience
         let baseExperience = "Base Experience"

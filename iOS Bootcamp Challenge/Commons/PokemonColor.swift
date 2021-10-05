@@ -51,6 +51,36 @@ struct PokemonColor {
             return gradient
         }
     }
+    
+    
+    static func getTypeColor(name: String?) -> UIColor {
+        let type = PokemonType(rawValue: name ?? "")
+        switch type {
+        case .grass:
+            return UIColor(cgColor: UIColor.primaryGrass)
+        case .poison:
+            return UIColor(cgColor:UIColor.primaryPoison)
+        case .fire:
+            return UIColor(cgColor: UIColor.primaryFire)
+        case .flying:
+            return UIColor(cgColor: UIColor.primaryFlying)
+        case .bug:
+            return UIColor(cgColor: UIColor.primaryBug)
+        case .water:
+             return UIColor(cgColor: UIColor.primaryWater)
+        case .fighting:
+            return UIColor(cgColor: UIColor.primaryFighting)
+        case .ice:
+            return UIColor(cgColor: UIColor.primaryIce)
+        case .electric:
+            return UIColor(cgColor: UIColor.primaryElectric)
+        case .ground:
+            return UIColor(cgColor: UIColor.primaryGround)
+        default:
+            return UIColor(cgColor: UIColor.primaryNormal)
+
+        }
+    }
 
 }
 

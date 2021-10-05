@@ -11,10 +11,12 @@ class Card {
 
     let title: String
     let items: [Item]
+    let pokemonType: String
 
-    init(title: String, items: [Item]) {
+    init(title: String, items: [Item], pokemonType: String) {
         self.title = title
         self.items = items
+        self.pokemonType = pokemonType
     }
 
 }
