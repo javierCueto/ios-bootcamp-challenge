@@ -27,6 +27,9 @@ class ListViewController: UICollectionViewController {
     private var isFirstLauch: Bool = true
 
     // TODO: Add a loading indicator when the app first launches and has no pokemons
+    private func showLoading(){
+        SVProgressHUD.show()
+    }
 
     private var shouldShowLoader: Bool = true
 
@@ -48,7 +51,7 @@ class ListViewController: UICollectionViewController {
         // Set up the searchController parameters.
         navigationItem.searchController = searchController
         definesPresentationContext = true
-        SVProgressHUD.show()
+        showLoading()
         refresh()
     }
     
